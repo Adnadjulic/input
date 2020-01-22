@@ -43,8 +43,7 @@
 
         <!-- Activity Android native camera -->
         <activity android:name="uk.co.lutraconsulting.CameraActivity" android:label="Input" android:parentActivityName="uk.co.lutraconsulting.InputActivity">
-            <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"
-                      android:name="android.support.PARENT_ACTIVITY"/>
+            <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
         </activity>
 
         <provider android:name="android.support.v4.content.FileProvider" android:authorities="uk.co.lutraconsulting.fileprovider" android:exported="false" android:grantUriPermissions="true">

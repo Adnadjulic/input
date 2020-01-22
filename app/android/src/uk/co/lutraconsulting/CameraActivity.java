@@ -36,11 +36,8 @@ import android.support.v4.content.FileProvider;
 public class CameraActivity extends Activity{
     private static final String TAG = "Camera Activity";
     private static final int CAMERA_CODE = 102;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
     private String targetPath;
     private File cameraFile;
-    private Intent takePictureIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
