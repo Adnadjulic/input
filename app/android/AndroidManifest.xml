@@ -46,7 +46,7 @@
             <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
         </activity>
 
-        <provider android:name="androidx.core.content.FileProvider" android:authorities="uk.co.lutraconsulting.fileprovider" android:exported="false" android:grantUriPermissions="true">
+        <provider android:name="android.support.v4.content.FileProvider" android:authorities="uk.co.lutraconsulting.fileprovider" android:exported="false" android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths">
             </meta-data>
         </provider>
