@@ -40,7 +40,7 @@ public class CameraActivity extends Activity{
     private File cameraFile;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
@@ -54,7 +54,7 @@ public class CameraActivity extends Activity{
             try {
                 photoFile = createImageFile(targetPath);
             } catch (IOException ex) {
-                // Error occurred while creating the File
+                // Handled in else branch since photoFile == null;
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -65,8 +65,15 @@ public class CameraActivity extends Activity{
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 takePictureIntent.putExtra("__RESULT__", "takePictureIntent__RESULT__");
                 startActivityForResult(takePictureIntent, CAMERA_CODE);
+            } else {
+                Intent activityIntent = getIntent();
+                activityIntent.putExtra("__RESULT__", "Cannot access target path.");
+                setResult(Activity.RESULT_CANCELED, activityIntent);
+                finish();
             }
         }
+
+        //throw new IOException("Tralalal!#@#$@JAVA");
 
         return;
     }
@@ -106,6 +113,12 @@ public class CameraActivity extends Activity{
                 setResult(Activity.RESULT_OK, data);   
                 
             }catch(IOException e){
+                Intent intent = this.getIntent();
+                if (data == null) {
+                    data = getIntent();                
+                }
+                data.putExtra("__RESULT__", e.getMessage());
+                setResult(Activity.RESULT_CANCELED, data);   
             }
             
             // TODO: after copy, verify if is correctly copied and then remove the old one
@@ -118,6 +131,7 @@ public class CameraActivity extends Activity{
         Log.d(TAG, "Copied file: "+src.getAbsolutePath()+" to file: "+dst.getAbsolutePath());
         InputStream in = null;
         OutputStream out = null;
+
         try {
             in = new FileInputStream(src);
             out = new FileOutputStream(dst);
@@ -128,12 +142,15 @@ public class CameraActivity extends Activity{
                     out.write(buf, 0, len);
             }
         } catch(IOException e) {
-            // TODO
+            throw new IOException("Cannot copy a photo to working directory.");
         }
         finally {
+          if (in != null)
             in.close();
+          if (out != null)
             out.close();
         }
+        
     }    
 
 }
