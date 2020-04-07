@@ -38,7 +38,6 @@ class AndroidUtils: public QObject
 
   signals:
     void imageSelected( QString imagePath );
-    void imageCaptured( QString imagePath );
 
   public slots:
     void showToast( QString message );
